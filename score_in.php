@@ -1,5 +1,6 @@
 <?php
 include "conn.php";
+ini_set("display_errors", "off");
 if (isset($_GET['json']) and $_GET['json']!== '')
 {
     $json_string = $_GET['json'];
@@ -11,6 +12,12 @@ if (isset($_GET['json']) and $_GET['json']!== '')
     $role4 = $obj->role4;
     $role5 = $obj->role5;
     $mysqli = new mysqli(HOST,USER,PWD,DBNAME);
+    if ($mysqli->connect_errno) {
+        $str = array('error' => '50000', 'msg'=>'database error');
+        http_response_code(500);
+        echo json_encode($str);
+        exit;
+    }
     $sql = "insert into score (stage,role1,role2,role3,role4,role5) values ('$stage','$role1','$role2','$role3','$role4','$role5')";
     if ($mysqli->query($sql)) {
         $str = array('error' => '0', 'msg' =>'insert is success');
@@ -22,11 +29,11 @@ if (isset($_GET['json']) and $_GET['json']!== '')
 }
 elseif (!isset($_GET['json'])) {
     http_response_code(403);
-    $str = array('error' => '40300', 'msg' =>'json(post) is not set');
+    $str = array('error' => '40300', 'msg' =>'json is not set');
 }
 elseif ($_GET['json'] === '') {
     http_response_code(403);
-    $str = array('error' => '40301', 'msg' =>'json(post) is null');
+    $str = array('error' => '40301', 'msg' =>'json is null');
 }
 echo json_encode($str);
 ?>

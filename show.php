@@ -1,14 +1,21 @@
 <?php
     include "conn.php";
+    ini_set("display_errors", "off");
     if (isset($_GET['stage']) and $_GET['stage'] !== '') {
         $stage = $_GET['stage'];
         $mysqli = new mysqli(HOST,USER,PWD,DBNAME);
+        if ($mysqli->connect_errno) {
+            $str = array('error' => '50000', 'msg'=>'database error');
+            http_response_code(500);
+            echo json_encode($str);
+            exit;
+        }
         $sql = "select * from score where stage = '$stage'";
         $result = $mysqli->query($sql);
         $datarow = mysqli_num_rows($result);
         if ($datarow === 0) {
             http_response_code(403);
-            $str = array('error' => 40302, 'msg'=> 'dont have data');
+            $str = array('error' => '40302', 'msg'=> "don't have data");
             echo json_encode($str);
             exit;
         }
@@ -25,15 +32,15 @@
             $score4+= $sql_arr['role4'];
             $score5+= $sql_arr['role5'];
         }
-        $str = array('data'=>array('score1'=>(string)round($score1/$datarow,2), 'score2'=>(string)round($score2/$datarow,2), 'score3'=>(string)round($score3/$datarow,2), 'score4'=>(string)round($score4/$datarow,2), 'score5'=>(string)round($score5/$datarow,2)),'error' => 0, 'msg'=>'succes');
+        $str = array('data'=>array('score1'=>(string)round($score1/$datarow,2), 'score2'=>(string)round($score2/$datarow,2), 'score3'=>(string)round($score3/$datarow,2), 'score4'=>(string)round($score4/$datarow,2), 'score5'=>(string)round($score5/$datarow,2)),'error' => '0', 'msg'=>'succes');
     }
     elseif (!isset($_GET['stage'])) {
         http_response_code(403);
-        $str = array('error' => 40300, 'msg' => 'stage is not set');
+        $str = array('error' => '40300', 'msg' => 'stage is not set');
     }
     elseif ($_GET['stage'] ==='') {
         http_response_code(403);
-        $str = array('error' => 40301, 'msg' => 'stage is null');
+        $str = array('error' => '40301', 'msg' => 'stage is null');
     }
     echo json_encode($str);
 
