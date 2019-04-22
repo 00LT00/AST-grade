@@ -16,13 +16,16 @@ if (isset($_GET['json']) and $_GET['json']!== '')
         $str = array('error' => '0', 'msg' =>'insert is success');
     }
     else {
+        http_response_code(403);
         $str = array('error' => '40302', 'msg' =>'insert is faile');
     }
 }
 elseif (!isset($_GET['json'])) {
+    http_response_code(403);
     $str = array('error' => '40300', 'msg' =>'json(post) is not set');
 }
 elseif ($_GET['json'] === '') {
+    http_response_code(403);
     $str = array('error' => '40301', 'msg' =>'json(post) is null');
 }
 echo json_encode($str);
