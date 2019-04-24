@@ -1,5 +1,6 @@
 <?php
     include "conn.php";
+    header("Access-Control-Allow-Origin:*");
     ini_set("display_errors", "off");
     if (isset($_GET['stage']) and $_GET['stage'] !== '') {
         $stage = $_GET['stage'];
