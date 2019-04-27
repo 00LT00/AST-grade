@@ -4,16 +4,10 @@
     ini_set("display_errors", "off");
     if (isset($_GET['stage']) and $_GET['stage'] !== '') {
         $stage = $_GET['stage'];
-        $mysqli = new mysqli(HOST,USER,PWD,DBNAME);
-        if ($mysqli->connect_errno) {
-            $str = array('error' => '50000', 'msg'=>'database error');
-            http_response_code(500);
-            echo json_encode($str);
-            exit;
-        }
-        $sql = "select * from score where stage = '$stage'";
-        $result = $mysqli->query($sql);
-        $datarow = mysqli_num_rows($result);
+        $sql="select * from score where stage = ?";                             //写sql语句
+        $stmt=$pdo->prepare($sql);                                              //预处理
+        $stmt->execute(array($stage));
+        $datarow = $stmt->rowCount();
         if ($datarow === 0) {
             http_response_code(403);
             $str = array('error' => '40302', 'msg'=> "don't have data");
@@ -25,8 +19,7 @@
         $score3 = 0;
         $score4 = 0;
         $score5 = 0;
-        for ($i=0; $i < $datarow; $i++) { 
-            $sql_arr = mysqli_fetch_assoc($result);
+        foreach ($stmt->fetchall(PDO::FETCH_ASSOC) as $sql_arr) {
             $score1+= $sql_arr['role1'];
             $score2+= $sql_arr['role2'];
             $score3+= $sql_arr['role3'];
@@ -42,7 +35,7 @@
     elseif ($_GET['stage'] ==='') {
         http_response_code(403);
         $str = array('error' => '40301', 'msg' => 'stage is null');
-    }
+    } 
     echo json_encode($str);
 
 ?>

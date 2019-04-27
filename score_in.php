@@ -12,20 +12,14 @@ if (isset($_GET['json']) and $_GET['json']!== '')
     $role3 = $obj->role3;
     $role4 = $obj->role4;
     $role5 = $obj->role5;
-    $mysqli = new mysqli(HOST,USER,PWD,DBNAME);
-    if ($mysqli->connect_errno) {
-        $str = array('error' => '50000', 'msg'=>'database error');
-        http_response_code(500);
-        echo json_encode($str);
-        exit;
-    }
-    $sql = "insert into score (stage,role1,role2,role3,role4,role5) values ('$stage','$role1','$role2','$role3','$role4','$role5')";
-    if ($mysqli->query($sql)) {
-        $str = array('error' => '0', 'msg' =>'insert is success');
-    }
-    else {
+    if (is_null($stage) or is_null($role1) or is_null($role2) or is_null($role3) or is_null($role4) or is_null($role5)){
         http_response_code(403);
         $str = array('error' => '40302', 'msg' =>'insert is faile');
+    }
+    else{
+        $stmt = $pdo->prepare("insert into score (stage,role1,role2,role3,role4,role5) values (:stage,:role1,:role2,:role3,:role4,:role5)");
+        $stmt->execute(array(':stage'=>$stage, ':role1'=> $role1, ':role2'=>$role2, ':role3'=>$role3, ':role4'=> $role4, ':role5'=> $role5));
+        $str = array('error' => '0', 'msg' =>'insert is success');
     }
 }
 elseif (!isset($_GET['json'])) {
