@@ -6,7 +6,7 @@
 
 BaseURL `score_in.php`
 
-#### GET`{json}`
+#### POST`{json}`
 
 Param
 
@@ -47,7 +47,6 @@ Response
 
 | HttpStatusCode | Error | Msg             | Meaning                |
 | -------------- | ----- | --------------- | ---------------------- |
-| 403            | 40300 | json is not set | {json}关键字没有       |
 | 403            | 40301 | json is null    | json空                 |
 | 403            | 40302 | insert is faile | 插入失败(缺少关键字)   |
 | 500            | 50000 | database error  | 数据库连接失败         |
