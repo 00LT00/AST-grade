@@ -1,7 +1,7 @@
 <?php
-    $dsn="mysql:host=localhost;dbname=score";
-    $username="root";
-    $passwd="123456";
+    $dsn="mysql:host=hduhelp0820.mysql.rds.aliyuncs.com;dbname=vote";
+    $username="vote";
+    $passwd="duhwd3oifjoe38u9oj8wi!";
     $options = array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES UTF8");
     $pdo= new PDO($dsn, $username, $passwd, $options);try{
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES UTF8");
