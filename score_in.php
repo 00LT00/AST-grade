@@ -1,7 +1,7 @@
 <?php
 include "conn.php";
 header("Access-Control-Allow-Origin:*");
-ini_set("display_errors", "on");
+ini_set("display_errors", "off");
 $json_string = file_get_contents('php://input');
 if($json_string !== ' '){
     $obj = json_decode($json_string);
