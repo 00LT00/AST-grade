@@ -1,10 +1,9 @@
 <?php
 include "conn.php";
 header("Access-Control-Allow-Origin:*");
-ini_set("display_errors", "off");
-if (isset($_GET['json']) and $_GET['json']!== '')
-{
-    $json_string = $_GET['json'];
+ini_set("display_errors", "on");
+$json_string = file_get_contents('php://input');
+if($json_string !== ' '){
     $obj = json_decode($json_string);
     $stage = $obj->stage;
     $role1 = $obj->role1;
@@ -22,11 +21,7 @@ if (isset($_GET['json']) and $_GET['json']!== '')
         $str = array('error' => '0', 'msg' =>'insert is success');
     }
 }
-elseif (!isset($_GET['json'])) {
-    http_response_code(403);
-    $str = array('error' => '40300', 'msg' =>'json is not set');
-}
-elseif ($_GET['json'] === '') {
+else{
     http_response_code(403);
     $str = array('error' => '40301', 'msg' =>'json is null');
 }
