@@ -3,8 +3,7 @@
     $username="vote";
     $passwd="duhwd3oifjoe38u9oj8wi!";
     $options = array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES UTF8");
-    $pdo= new PDO($dsn, $username, $passwd, $options);try{
-        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES UTF8");
+    try{
         $pdo= new PDO($dsn, $username, $passwd, $options);
     }catch(Exception $e){
         http_response_code(500);

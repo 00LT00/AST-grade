@@ -1,9 +1,12 @@
 <?php
-include "conn.php";
 header("Access-Control-Allow-Origin:*");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Request-Methods:GET, POST, PUT, DELETE, OPTIONS");
-
+header('Access-Control-Allow-Headers:content-type');
+if($_SERVER['REQUEST_METHOD']=='OPTIONS'){
+    die();
+}
+include "conn.php";
 ini_set("display_errors", "off");
 $json_string = file_get_contents('php://input');
 if($json_string !== ' '){
