@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin:*");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Request-Methods:GET, POST, PUT, DELETE, OPTIONS");
 header('Access-Control-Allow-Headers:content-type');
-ini_set("display_errors", "on");
+ini_set("display_errors", "off");
 if($_SERVER['REQUEST_METHOD']=='OPTIONS'){
     die();
 }
