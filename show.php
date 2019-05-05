@@ -29,7 +29,7 @@
             $score4+= $sql_arr['role4'];
             $score5+= $sql_arr['role5'];
         }
-        $str = array('data'=>array('score1'=>(string)round($score1/$datarow,2), 'score2'=>(string)round($score2/$datarow,2), 'score3'=>(string)round($score3/$datarow,2), 'score4'=>(string)round($score4/$datarow,2), 'score5'=>(string)round($score5/$datarow,2)),'error' => '0', 'msg'=>'succes');
+        $str = array('data'=>array('stage'=>$stage,'score1'=>(string)round($score1/$datarow,2), 'score2'=>(string)round($score2/$datarow,2), 'score3'=>(string)round($score3/$datarow,2), 'score4'=>(string)round($score4/$datarow,2), 'score5'=>(string)round($score5/$datarow,2), 'row'=>(string)$datarow),'error' => '0', 'msg'=>'succes');
     }
     elseif (!isset($_GET['stage'])) {
         http_response_code(403);
