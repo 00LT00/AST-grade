@@ -20,7 +20,7 @@
     }
     /**获取学号，姓名 */
     function get_stu($authorization,$url="https://api.hduhelp.com/base/person/info"){
-    $headers = array("authorization:token $authorization");
+    $headers = array("authorization:$authorization");
     // 初始化
     $curl = curl_init();
     // 设置抓取的url
