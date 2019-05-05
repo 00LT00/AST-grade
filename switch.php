@@ -3,6 +3,7 @@
     header("Access-Control-Allow-Credentials: true");
     header("Access-Control-Request-Methods:GET, POST, PUT, DELETE, OPTIONS");
     header('Access-Control-Allow-Headers:content-type');
+    ini_set("display_errors", "off");
     include "conn.php";
     /**重写isset() */
     function is_set($param,$method='get'){
@@ -92,7 +93,7 @@
         $stmt = $pdo->prepare( "insert into logs (time,id,name,operate) values (:time,:id,:name,:operate);
                                 update team set enable_time = :time where stage = :stage");
         /**执行 */
-        $stmt->execute($sql = array(':time'=>$time, ':id'=>$id, ':name'=>$name, ':operate'=>$operate, 
+        $stmt->execute(array(':time'=>$time, ':id'=>$id, ':name'=>$name, ':operate'=>$operate, 
                                     ':time'=>$time, ':stage'=>$stage));
         
         $str = array('error'=> '0', 'msg'=>'add logs');
@@ -102,28 +103,4 @@
         $str = array('error' => '40300', 'msg' =>'parameter error');
     }
     echo json_encode($str);
-    print_r($sql);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* $arr = get_stu("VUkBT07cv7raLTQaQFXpgAj4h4XxEOljJHs","https://api.hduhelp.com/base/person/info");
-    $name = $arr['data']['STAFFNAME'];
-    $id = $arr['data']['STAFFID']; */
-
-
-
-
-
 ?>
