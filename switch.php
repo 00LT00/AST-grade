@@ -43,10 +43,10 @@
     //显示获得的数据
     }
     /**判断是否有权限 */
-    function judge($id){
+    function judge($staffid){
         include "conn.php";//不加的话无法加载conn.php页面
         $stmt = $pdo->prepare("select * from admin where id = ?");
-        $stmt->execute(array($id));
+        $stmt->execute(array($staffid));
         $datarow = $stmt->rowCount();
         if ($datarow === 0) {
             return false;       //数据库没有此学号
@@ -83,8 +83,8 @@
         $stage = $_POST['stage'];
         $arr = get_stu($token);
         /**学号 */
-        $id = $arr['data']['STAFFID'];
-        if (!judge($id)) {
+        $staffid = $arr['data']['STAFFID'];
+        if (!judge($staffid)) {
             http_response_code(403);
             $str = array('error'=>'40302', 'msg'=>'No authority');
             echo json_encode($str);
@@ -93,10 +93,10 @@
         /**姓名 */
         $name = $arr['data']['STAFFNAME'];
         /**预处理，两条语句中间用;隔开 */
-        $stmt = $pdo->prepare( "insert into logs (time,id,name,operate,stage) values (:time1,:id,:name,:operate,:stage);
+        $stmt = $pdo->prepare( "insert into logs (time,staffid,name,operate,stage) values (:time1,:staffid,:name,:operate,:stage);
                                 update team set enable_time = :time where stage = :stage");
         /**执行 */
-        $stmt->execute(array(':time1'=>date("Y-m-d H:i:s"), ':id'=>$id, ':name'=>$name, ':operate'=>$operate,':stage'=>$stage, 
+        $stmt->execute(array(':time1'=>date("Y-m-d H:i:s"), ':staffid'=>$staffid, ':name'=>$name, ':operate'=>$operate,':stage'=>$stage, 
                                 ':time'=>$time, ':stage'=>$stage));
         $str = array('error'=> '0', 'msg'=>'add logs');
     }
