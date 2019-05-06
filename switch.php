@@ -93,12 +93,11 @@
         /**姓名 */
         $name = $arr['data']['STAFFNAME'];
         /**预处理，两条语句中间用;隔开 */
-        $stmt = $pdo->prepare( "insert into logs (time,id,name,operate) values (:time,:id,:name,:operate);
+        $stmt = $pdo->prepare( "insert into logs (time,id,name,operate,stage) values (:time1,:id,:name,:operate,:stage);
                                 update team set enable_time = :time where stage = :stage");
         /**执行 */
-        $stmt->execute(array(':time'=>$time, ':id'=>$id, ':name'=>$name, ':operate'=>$operate, 
-                                    ':time'=>$time, ':stage'=>$stage));
-        
+        $stmt->execute(array(':time1'=>date("Y-m-d H:i:s"), ':id'=>$id, ':name'=>$name, ':operate'=>$operate,'stage'=>$stage, 
+                                ':time'=>$time, ':stage'=>$stage));
         $str = array('error'=> '0', 'msg'=>'add logs');
     }
     else{
