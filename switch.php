@@ -4,6 +4,9 @@
     header("Access-Control-Request-Methods:GET, POST, PUT, DELETE, OPTIONS");
     header('Access-Control-Allow-Headers:content-type');
     ini_set("display_errors", "off");
+    if($_SERVER['REQUEST_METHOD']=='OPTIONS'){
+    die();
+    }
     include "conn.php";
     /**重写isset() */
     function is_set($param,$method='get'){
