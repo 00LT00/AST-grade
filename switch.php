@@ -96,7 +96,7 @@
         $stmt = $pdo->prepare( "insert into logs (time,id,name,operate,stage) values (:time1,:id,:name,:operate,:stage);
                                 update team set enable_time = :time where stage = :stage");
         /**执行 */
-        $stmt->execute(array(':time1'=>date("Y-m-d H:i:s"), ':id'=>$id, ':name'=>$name, ':operate'=>$operate,'stage'=>$stage, 
+        $stmt->execute(array(':time1'=>date("Y-m-d H:i:s"), ':id'=>$id, ':name'=>$name, ':operate'=>$operate,':stage'=>$stage, 
                                 ':time'=>$time, ':stage'=>$stage));
         $str = array('error'=> '0', 'msg'=>'add logs');
     }
